@@ -1,0 +1,40 @@
+<div class="topbar">
+  <a href="{{ url_for('main.dashboard') }}" class="btn btn-back">← Retour</a>
+  <a href="{{ url_for('main.deconnexion') }}" class="btn btn-logout">Se Déconnecter</a>
+</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Créer un Devis</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Créer un Devis</h1>
+    <form method="POST">
+        <label for="client_id">Client :</label>
+        <select name="client_id" id="client_id" required>
+            <option value="" disabled selected>-- Sélectionnez un client --</option>
+            {% for client in clients %}
+                <option value="{{ client.id_client }}">{{ client.prenom_client }} {{ client.nom_client }} ({{ client.societe or 'Aucune société' }})</option>
+            {% endfor %}
+        </select>
+        
+
+    
+        <label for="projet_id">Projet :</label>
+        <select name="projet_id" id="projet_id" required>
+            <option value="" disabled selected>-- Sélectionnez un projet --</option>
+            {% for projet in projets %}
+                <option value="{{ projet.id_projet }}">{{ projet.nom_projet }}</option>
+            {% endfor %}
+        </select>
+    
+        <label for="date_creation">Date de Création :</label>
+        <input type="date" name="date_creation" id="date_creation" required>
+        <label for="validite">Validité (date) :</label>
+        <input type="date" name="validite" id="validite" required>
+        <button type="submit">Créer</button>
+    </form>
+    
+</body>
+</html>

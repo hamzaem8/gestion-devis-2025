@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lignes du Devis #{{ devis.id_devis }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+  /* Colonne Actions un peu plus large + autoriser la casse */
+  th.actions, td.actions {
+    width: 180px;              /* + large */
+    text-align: right;
+    white-space: normal;       /* autorise le retour à la ligne */
+  }
+
+  /* Bouton compact mais multi-ligne possible */
+  .btn-line-xs{
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    line-height: 1.15;
+    white-space: normal;       /* permet d’afficher “la ligne” */
+    display: inline-block;
+    max-width: 170px;
+    text-align: center;
+  }
+
+  /* Garde la table propre */
+  table { table-layout: fixed; width: 100%; }
+  td, th { overflow: hidden; text-overflow: ellipsis; }
+
+  /* Petit boost sur très petits écrans */
+  @media (max-width: 992px){
+    th.actions, td.actions { width: 200px; }
+    .btn-line-xs { max-width: 190px; }
+  }
+
+  .zone-actions-globales{
+    margin-top:16px; padding:16px; border:1px solid #e5e7eb; border-radius:8px; background:#fafafa;
+  }
+  .note{ font-size:.9rem; color:#6b7280; margin-top:12px; }
+  </style>
+</head>
+<body>
+  <div style="background:#ff0;padding:6px">DEBUG v3</div>
+
+  <div class="topbar">
+    <a href="{{ url_for('main.mes_devis') }}" class="btn btn-back">← Retour</a>
+    <a href="{{ url_for('main.deconnexion') }}" class="btn btn-logout">Se Déconnecter</a>
+  </div>
+
+  <header>
+    <h1>Lignes du Devis #{{ devis.id_devis }}</h1>
+    <p>Client : <strong>{{ devis.client.nom_client }}</strong> — Projet : <strong>{{ devis.projet.nom_projet }}</strong></p>
+  </header>
+
+  <main>
+    <h2>Ajouter une ligne</h2>
+    <form method="POST" class="form-container">
+      <label for="article_id">Ouvrage :</label>
+      <select name="article_id" id="article_id" required>
+        {% for o in ouvrages %}
+          <option value="{{ o.id_ouvrage }}">{{ o.description_ouvrage }} — {{ "%.2f"|format(o.prix_unitaire|float) }} €/{{ o.unite_ouvrage }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="quantite">Quantité :</label>
+      <input type="number" name="quantite" value="1" min="0" step="0.01" required>
+
+      <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+
+    <h2>Lignes existantes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Ouvrage</th>
+          <th>PU (€)</th>
+          <th>Qté</th>
+          <th>Total ligne (€)</th>
+          <th class="actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in devis.lignes | sort(attribute='id_ligne') %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ l.article.description_ouvrage }}</td>
+          <td>{{ '%.2f'|format(l.article.prix_unitaire|float) }}</td>
+          <td>{{ '%.2f'|format(l.quantite_ouvrage|float) }}</td>
+          <td>{{ '%.2f'|format((l.article.prix_unitaire|float) * (l.quantite_ouvrage|float)) }}</td>
+          <td class="actions">
+            <form method="POST"
+                  action="{{ url_for('main.supprimer_ligne_devis',
+                                     devis_id=devis.id_devis,
+                                     ligne_id=l.id_ligne) }}"
+                  style="display:inline"
+                  onsubmit="return confirm('Supprimer cette LIGNE du devis ?');">
+              <button type="submit"
+                      class="btn btn-danger btn-line-xs"
+                      title="Supprimer uniquement cette ligne">
+                Supprimer la ligne
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6">Aucune ligne pour l’instant.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>Totaux</h2>
+    <table>
+      <tr><th>Total HT</th><td>{{ "%.2f"|format(devis.total_ht) }} €</td></tr>
+      <tr><th>TVA ({{ devis.taux_TVA }} %)</th><td>{{ "%.2f"|format(devis.total_tva) }} €</td></tr>
+      <tr><th>Total TTC</th><td><strong>{{ "%.2f"|format(devis.total_ttc) }} €</strong></td></tr>
+    </table>
+
+    <div class="zone-actions-globales">
+      <div class="action-buttons" style="text-align:center">
+        <form method="POST"
+              action="{{ url_for('main.supprimer_devis', devis_id=devis.id_devis) }}"
+              style="display:inline"
+              onsubmit="return confirm('⚠️ Supprimer TOUT le devis (toutes les lignes) ?');">
+          <button type="submit" class="btn btn-danger">Supprimer le devis</button>
+        </form>
+      </div>
+      <p class="note">
+        Astuce : “Supprimer la ligne” retire seulement la ligne correspondante. “Supprimer le devis” efface l’intégralité du devis.
+      </p>
+    </div>
+  </main>
+</body>
+</html>

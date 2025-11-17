@@ -1,0 +1,56 @@
+<div class="topbar">
+  <a href="{{ url_for('main.dashboard') }}" class="btn btn-back">← Retour</a>
+  <a href="{{ url_for('main.deconnexion') }}" class="btn btn-logout">Se Déconnecter</a>
+</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter un Client</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Ajouter un Nouveau Client</h1>
+    </header>
+
+    <main>
+        <form method="POST" class="form-container">
+            <label for="societe">Société :</label>
+            <input type="text" name="societe" id="societe">
+
+            <label for="numero_TVA">Numéro de TVA :</label>
+            <input type="text" name="numero_TVA" id="numero_TVA">
+
+            <label for="prenom_client">Prénom :</label>
+            <input type="text" name="prenom_client" id="prenom_client" required>
+
+            <label for="nom_client">Nom :</label>
+            <input type="text" name="nom_client" id="nom_client" required>
+
+            <label for="adresse_client">Adresse :</label>
+            <textarea name="adresse_client" id="adresse_client" rows="3" required></textarea>
+
+            <label for="code_postal">Code Postal :</label>
+            <input type="text" name="code_postal" id="code_postal">
+
+            <label for="ville">Ville :</label>
+            <input type="text" name="ville" id="ville">
+
+            <label for="pays">Pays :</label>
+            <input type="text" name="pays" id="pays">
+
+            <label for="email_client">Email :</label>
+            <input type="email" name="email_client" id="email_client" required>
+
+            <label for="telephone_client">Téléphone :</label>
+            <input type="text" name="telephone_client" id="telephone_client">
+
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+    </main>
+    <footer>
+        <p>© 2025 Gestion Devis - Tous droits réservés.</p>
+    </footer>
+    
+</body>
+</html>

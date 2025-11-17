@@ -1,0 +1,83 @@
+<div class="topbar">
+  <a href="{{ url_for('main.dashboard') }}" class="btn btn-back">← Retour</a>
+  <a href="{{ url_for('main.deconnexion') }}" class="btn btn-logout">Se Déconnecter</a>
+</div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Factures</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>Factures</h1>
+
+    <!-- FILTRE STATUT -->
+    <form method="get" action="{{ url_for('main.liste_facture') }}" class="form-inline" style="margin-top:10px">
+      <label for="statut" style="margin-right:.5rem;">Filtrer par statut :</label>
+      <select id="statut" name="statut">
+        <option value="" {{ ''==statut and 'selected' or '' }}>Tous</option>
+        {% for s in STATUTS %}
+          <option value="{{ s }}" {{ s==statut and 'selected' or '' }}>{{ s }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn btn-primary" style="margin-left:.5rem;">Appliquer</button>
+      {% if statut %}
+        <a class="btn btn-light" href="{{ url_for('main.liste_facture') }}" style="margin-left:.5rem;">Réinitialiser</a>
+      {% endif %}
+    </form>
+  </header>
+
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Client</th>
+          <th>Projet</th>
+          <th>Date</th>
+          <th>Statut</th>
+          <th>Total TTC (€)</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for f in factures %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ f.devis.client.nom_client }}</td>
+          <td>{{ f.devis.projet.nom_projet }}</td>
+          <td>{{ f.date_creation_facture.strftime('%d/%m/%Y') if f.date_creation_facture else '-' }}</td>
+
+          <!-- Champ de statut (édition inline) -->
+          <td>
+            <form method="post"
+                  action="{{ url_for('main.maj_statut_facture', facture_id=f.id_facture, retour_statut=statut) }}">
+              <select name="statut" onchange="this.form.submit()">
+                {% for s in STATUTS %}
+                  <option value="{{ s }}" {{ (f.statut_facture or '')==s and 'selected' or '' }}>{{ s }}</option>
+                {% endfor %}
+              </select>
+            </form>
+          </td>
+
+          <td class="num">{{ '%.2f'|format(f.devis.total_ttc or 0) }}</td>
+
+          <td class="action-buttons">
+            <a class="btn btn-secondary"
+               href="{{ url_for('main.facture_detail', facture_id=f.id_facture) }}">Voir</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="7" style="text-align:center;">Aucune facture.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    <p>© 2025 Gestion Devis - Tous droits réservés.</p>
+  </footer>
+</body>
+</html>

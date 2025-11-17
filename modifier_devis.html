@@ -1,0 +1,40 @@
+<div class="topbar">
+  <a href="{{ url_for('main.mes_devis') }}" class="btn btn-back">← Retour</a>
+  <a href="{{ url_for('main.deconnexion') }}" class="btn btn-logout">Se Déconnecter</a>
+</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modifier un Devis</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Modifier un Devis</h1>
+
+  <form method="POST" class="form-container">
+    <label for="date_creation">Date de Création :</label>
+    <input type="date"
+           name="date_creation" id="date_creation"
+           value="{{ devis.date_creation_devis.strftime('%Y-%m-%d') }}"
+           required>
+
+    <label for="statut">Statut :</label>
+    <input type="text"
+           name="statut" id="statut"
+           value="{{ devis.statut_devis }}" required>
+
+    <label for="validite">Validité :</label>
+    <input type="date"
+           name="validite" id="validite"
+           value="{{ devis.validite.strftime('%Y-%m-%d') if devis.validite else '' }}">
+
+    <label for="taux_tva">TVA (%) :</label>
+    <input type="number"
+           name="taux_tva" id="taux_tva"
+           step="0.01" min="0"
+           value="{{ devis.taux_TVA }}">
+
+    <button type="submit" class="btn btn-primary">Modifier</button>
+  </form>
+</body>
+</html>

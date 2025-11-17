@@ -1,0 +1,44 @@
+<div class="topbar">
+  <a href="{{ url_for('main.dashboard') }}" class="btn btn-back">← Retour</a>
+  <a href="{{ url_for('main.deconnexion') }}" class="btn btn-logout">Se Déconnecter</a>
+</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter un Projet</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Ajouter un Projet</h1>
+    </header>
+    <main>
+        <form method="POST">
+            <label for="nom_projet">Nom du projet :</label>
+            <input type="text" name="nom_projet" id="nom_projet" required>
+
+            <label for="description_projet">Description :</label>
+            <textarea name="description_projet" id="description_projet"></textarea>
+
+            <label for="statut_projet">Statut :</label>
+            <select name="statut_projet" id="statut_projet" required>
+                <option value="En cours">En cours</option>
+                <option value="Terminé">Terminé</option>
+                <option value="Annulé">Annulé</option>
+            </select>
+
+            <label for="date_echeance">Date d'échéance :</label>
+            <input type="date" name="date_echeance" id="date_echeance">
+
+            <label for="client_id">Client associé :</label>
+            <select name="client_id" id="client_id" required>
+                {% for client in clients %}
+                <option value="{{ client.id_client }}">{{ client.nom_client }} {{ client.prenom_client }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Créer le Projet</button>
+        </form>
+   
+</body>
+</html>

@@ -1,0 +1,750 @@
+/* --- Global Styles --- */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f5f7;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #222;
+    margin-bottom: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* --- Header --- */
+header {
+    background-color: #4a90e2;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+/* --- Form Styles --- */
+form {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+form input, form select, form button {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+form button {
+    background-color: #4a90e2;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #3b78cc;
+}
+
+/* --- Table Styles --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background-color: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #4a90e2;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+table tr:hover {
+    background-color: #f0f7ff;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+/* --- Button Styles --- */
+button {
+    background-color: #4a90e2;
+    color: white;
+    font-weight: bold;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #3b78cc;
+}
+
+/* --- Navigation Links --- */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #0056b3;
+}
+
+/* --- Footer --- */
+footer {
+    background-color: #4a90e2;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    table, form {
+        margin: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin-bottom: 0.5rem;
+    }
+}
+
+
+/* --- Global Styles --- */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f5f7;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #4a90e2;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+footer {
+    background-color: #4a90e2;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* --- Dashboard Styles --- */
+.dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2rem;
+    gap: 1.5rem;
+}
+
+.dashboard-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Button Styles --- */
+.btn {
+    display: block;
+    text-decoration: none;
+    color: white;
+    background-color: #4a90e2;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #3b78cc;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+
+/* Pour les smartphones et petits écrans */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem; /* Réduit la taille du texte dans le header */
+    }
+
+    .btn {
+        font-size: 0.9rem; /* Réduit légèrement la taille des boutons */
+        padding: 0.7rem;
+    }
+
+    footer {
+        font-size: 0.9rem; /* Réduit la taille du texte dans le footer */
+        text-align: center;
+    }
+
+    .dashboard-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dashboard-card {
+        width: 100%; /* Prend toute la largeur disponible */
+        margin-bottom: 1rem; /* Ajoute un espacement entre les cartes */
+    }
+
+    nav {
+        flex-direction: column; /* Rend le menu vertical */
+        align-items: center;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    nav ul li {
+        font-size: 1rem; /* Réduit légèrement la taille des liens */
+    }
+
+    form {
+        width: 95%; /* Prend presque toute la largeur disponible */
+        padding: 1rem;
+        margin: auto;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"], select {
+        font-size: 0.9rem;
+        padding: 0.7rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 0.7rem 1rem;
+    }
+}
+
+/* --- Améliorations générales pour écrans très petits (max-width: 320px) --- */
+@media (max-width: 320px) {
+    header h1 {
+        font-size: 1.2rem; /* Réduit encore la taille du titre */
+    }
+
+    .btn {
+        font-size: 0.8rem; /* Ajuste encore les boutons */
+        padding: 0.5rem;
+    }
+
+    nav ul li {
+        font-size: 0.9rem; /* Réduit la taille des liens */
+    }
+
+    footer {
+        font-size: 0.8rem;
+    }
+
+    form label {
+        font-size: 0.8rem;
+    }
+
+    form input[type="text"], form input[type="email"], form input[type="password"], form select {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+}
+
+
+table td {
+    vertical-align: middle; /* Centrer verticalement le contenu */
+}
+
+table td .btn {
+    display: inline-block; /* Aligne les boutons correctement */
+    margin-right: 0.5rem; /* Ajoute de l'espacement entre les boutons */
+}
+
+.btn {
+    text-align: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none; /* Supprime les bordures blanches */
+    box-shadow: none; /* Supprime tout effet de contour ou ombre */
+    padding: 0.4rem 0.8rem; /* Ajuste le padding pour correspondre à "Modifier" */
+    font-size: 0.8rem; /* Uniformise la taille du texte */
+    border-radius: 5px; /* Assure un design homogène */
+}
+
+.btn-danger:hover {
+    background-color: #a71d2a; /* Rouge plus sombre pour le survol */
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem; /* Espace uniforme entre les boutons */
+    align-items: center;
+}
+
+
+.btn-sm {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+}
+
+/* Alignement et style de la table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #007bff;
+    color: white;
+    text-transform: uppercase;
+}
+
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.header-actions .btn {
+    font-size: 1rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+.header-actions .btn-primary {
+    background-color: #007bff;
+}
+
+.header-actions .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+
+/* Style pour le tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #007bff;
+    color: white;
+    text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #e6f7ff;
+}
+
+/* Boutons dans la table */
+table td .btn {
+    margin-right: 0.5rem;
+
+}
+
+
+.link-button {
+    all: unset; /* Réinitialise tous les styles par défaut */
+    
+}
+
+.link-button:hover {
+    color: #a71d2a; /* Rouge plus sombre au survol */
+    text-decoration: none; /* Supprime la ligne au survol */
+}
+
+
+/* Conteneur pour les boutons d'action */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem; /* Ajoute un espace entre les boutons */
+    align-items: center;
+}
+
+.action-buttons .btn {
+    margin: 0; /* Supprime les marges inutiles */
+    padding: 0.4rem 0.8rem; /* Ajuste le padding pour une taille uniforme */
+    text-align: center;
+}
+
+.header-container h1 {
+    text-align: center;
+    flex: 1; /* Prend toute la largeur disponible */
+    margin: 0 auto; /* Centre horizontalement */
+}
+
+.header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem; /* Espace entre les éléments */
+}
+
+.header-actions .btn-primary {
+    background-color: #0056b3; /* Bleu foncé */
+    color: white;
+}
+
+.header-actions .btn-primary:hover {
+    background-color: #003f8c; /* Plus foncé au survol */
+}
+
+
+
+
+
+/* Style du bouton Retour */
+.btn-back {
+    background-color: #1c3b70; /* Bleu foncé */
+    color: white;
+    padding: 0.8rem 2rem; /* Taille du bouton */
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-back:hover {
+    background-color: #162d54; /* Bleu encore plus foncé au survol */
+    transform: scale(1.05); /* Légère animation de zoom */
+}
+
+
+
+
+
+body.mes-clients-page form {
+    margin: 0; /* Supprime les marges autour du formulaire */
+    padding: 0; /* Supprime les paddings */
+    display: inline; /* Évite que le formulaire ajoute des espaces */
+}
+
+body.mes-projets-page form {
+    margin: 0; /* Supprime les marges autour du formulaire */
+    padding: 0; /* Supprime les paddings */
+    display: inline; /* Évite que le formulaire ajoute des espaces */
+}
+
+
+
+.header-actions {
+    text-align: right; /* Aligne le bouton à droite */
+    margin-bottom: 20px; /* Ajoute un espace en bas pour l'espacement */
+}
+
+.header-actions .btn {
+    display: inline-block; /* Assure le bon affichage du bouton */
+    padding: 10px 20px; /* Espacement interne pour un bouton bien dimensionné */
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #1e3a8a; /* Couleur du bouton */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px; /* Coins arrondis */
+    transition: background-color 0.3s; /* Animation douce au survol */
+}
+
+.header-actions .btn:hover {
+    background-color: #375a9e; /* Couleur au survol */
+}
+
+.logout-container {
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    margin-top: auto; /* Pousse le bouton vers le bas */
+    margin-bottom: 1rem; /* Ajoute de l'espace avant le footer */
+}
+
+
+.confirmation-container {
+    text-align: center;
+    margin-top: 10rem; /* Ajustez en fonction de vos besoins */
+    padding: 2rem;
+    background-color: #f4f5f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.confirmation-container h1 {
+    font-size: 2.5rem;
+    color: #4a90e2;
+    margin-bottom: 1rem;
+}
+
+.confirmation-container p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.confirmation-container .btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.confirmation-container .btn:hover {
+    background-color: #0056b3;
+}
+
+/* === Topbar: retour à gauche / déconnexion à droite === */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 18px;
+}
+
+/* Bouton "Retour" (haut-gauche) */
+.btn-back {
+  background-color: #e5e7eb;
+  color: #111827;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+.btn-back:hover { background-color: #d1d5db; }
+
+/* Bouton "Déconnexion" (haut-droite) */
+.btn-logout {
+  background-color: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+.btn-logout:hover { background-color: #b91c1c; }
+
+/* Bouton "Modifier" en vert (partout) */
+.btn-edit,
+.btn.btn-secondary {           /* si tes "Modifier" utilisent .btn-secondary */
+  background-color: #16a34a;   /* vert */
+  color: #fff !important;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+.btn-edit:hover,
+.btn.btn-secondary:hover {
+  background-color: #15803d;
+}
+
+/* Harmonisation boutons "Supprimer" rouges compacts */
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff !important;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+}
+.btn-danger:hover { background-color: #a71d2a; }
+
+/* Alignement propre des boutons d’action dans les tableaux */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+/* Positionner le bouton dans le header */
+.header-with-logout { position: relative; }
+.header-with-logout .logout-right {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+}
+
+/* Style du bouton de déconnexion (réutilisable) */
+.btn-logout {
+  background-color: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+.btn-logout:hover { background-color: #b91c1c; }
+
+.searchbar {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  margin: 1rem 0 1.5rem;
+}
+.searchbar input[type="text"] {
+  min-width: 360px;
+  padding: .5rem .75rem;
+}
+/* === Uniformisation taille boutons Actions === */
+.action-buttons .btn {
+  padding: 0.6rem 1.2rem !important;  /* même hauteur */
+  font-size: 0.95rem !important;      /* taille texte identique */
+  min-width: 110px !important;        /* largeur identique */
+  text-align: center;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+/* Supprimer le fond blanc et les ombres des formulaires inline dans les tables */
+.action-buttons form {
+  background: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  display: inline; /* garde le formulaire compact */
+}

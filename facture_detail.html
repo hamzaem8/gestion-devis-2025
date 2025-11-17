@@ -1,0 +1,72 @@
+<div class="topbar">
+  <a href="{{ url_for('main.mes_devis') }}" class="btn btn-back">← Mes Devis</a>
+  <a href="{{ url_for('main.deconnexion') }}" class="btn btn-logout">Se Déconnecter</a>
+</div>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Facture {{ facture.communication or ('Facture ' ~ '%03d'|format(facture.id_facture)) }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>Facture {{ facture.communication or ('Facture ' ~ '%03d'|format(facture.id_facture)) }}</h1>
+    <p>
+      Client : <strong>{{ client.nom_client }}</strong>
+      — Projet : <strong>{{ devis.projet.nom_projet }}</strong><br>
+      Date : <strong>{{ facture.date_creation_facture.strftime('%d/%m/%Y') }}</strong><br>
+      Statut : <strong>{{ facture.statut_facture }}</strong>
+    </p>
+  </header>
+
+  <main>
+    <h2>Détails</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Ouvrage</th>
+          <th>PU (€)</th>
+          <th>Qté</th>
+          <th>Total ligne (€)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in lignes|sort(attribute='id_ligne') %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ l.article.description_ouvrage }}</td>
+            <td class="num">{{ '%.2f'|format(l.article.prix_unitaire|float) }}</td>
+            <td class="num">{{ '%.2f'|format(l.quantite_ouvrage|float) }}</td>
+            <td class="num">{{ '%.2f'|format((l.article.prix_unitaire|float) * (l.quantite_ouvrage|float)) }}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="5">Aucune ligne pour ce devis.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>Totaux</h2>
+    <table>
+      <tr>
+        <th>Total HT</th>
+        <td class="num">{{ '%.2f'|format(total_ht) }} €</td>
+      </tr>
+      <tr>
+        <th>TVA ({{ '%.0f'|format(tva_rate) }} %)</th>
+        <td class="num">{{ '%.2f'|format(total_tva) }} €</td>
+      </tr>
+      <tr>
+        <th>Total TTC</th>
+        <td class="num"><strong>{{ '%.2f'|format(total_ttc) }} €</strong></td>
+      </tr>
+    </table>
+  </main>
+
+  <footer>
+    <p>© 2025 Gestion Devis - Tous droits réservés.</p>
+  </footer>
+</body>
+</html>

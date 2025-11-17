@@ -1,0 +1,141 @@
+<div class="topbar">
+  <a href="{{ url_for('main.dashboard') }}" class="btn btn-back">← Retour</a>
+  <a href="{{ url_for('main.deconnexion') }}" class="btn btn-logout">Se Déconnecter</a>
+</div>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Mes Devis</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    .num { text-align:right }
+    .badge { padding:.15rem .5rem; border-radius:.5rem; font-size:.75rem; font-weight:600 }
+    .badge--en-cours { background:#fff7ed; color:#9a3412; border:1px solid #fed7aa }
+    .badge--valide   { background:#ecfdf5; color:#065f46; border:1px solid #a7f3d0 }
+    .badge--envoye   { background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe }
+    .badge--facture  { background:#f1f5f9; color:#0f172a; border:1px solid #cbd5e1 }
+    .action-buttons { display:flex; gap:.35rem; flex-wrap:wrap }
+    .btn[disabled] { opacity:.6; cursor:not-allowed }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mes Devis</h1>
+    <div class="header-actions">
+      <a href="{{ url_for('main.ajouter_devis') }}" class="btn btn-primary">Créer un Devis</a>
+    </div>
+  </header>
+
+  <main>
+    {% if devis|length == 0 %}
+      <div class="empty-state">
+        <p>Aucun devis pour l’instant.</p>
+        <a class="btn btn-primary" href="{{ url_for('main.ajouter_devis') }}">Créer mon premier devis</a>
+      </div>
+    {% else %}
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Client</th>
+          <th>Projet</th>
+          <th>Date</th>
+          <th>Statut</th>
+          <th>Total HT (€)</th>
+          <th>TVA (€)</th>
+          <th>Total TTC (€)</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for d in devis %}
+        {# Normalisations #}
+        {% set statut_raw = (d.statut_devis or '') %}
+        {% set statut = statut_raw|trim|lower %}
+        {% set total_ht = (d.total_ht or 0) %}
+
+        {# Conditions : on simplifie -> total > 0 et pas déjà facturé #}
+        {% set peut_envoyer  = (d.client and d.client.email_client) and (total_ht > 0) %}
+        {% set peut_facturer = (total_ht > 0) and (d.facture is none) %}
+
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ d.client.nom_client }}</td>
+          <td>{{ d.projet.nom_projet }}</td>
+          <td>{{ d.date_creation_devis.strftime('%d/%m/%Y') }}</td>
+
+          <td>
+            {% if statut == 'en cours' %}
+              <span class="badge badge--en-cours">{{ statut_raw }}</span>
+            {% elif statut in ['validé','valide'] %}
+              <span class="badge badge--valide">{{ statut_raw }}</span>
+            {% elif statut == 'envoyé' %}
+              <span class="badge badge--envoye">{{ statut_raw }}</span>
+            {% elif statut == 'facturé' %}
+              <span class="badge badge--facture">{{ statut_raw }}</span>
+            {% else %}
+              {{ statut_raw }}
+            {% endif %}
+          </td>
+
+          <td class="num">{{ '%.2f'|format(total_ht) }}</td>
+          <td class="num">{{ '%.2f'|format(d.total_tva or 0) }}</td>
+          <td class="num"><strong>{{ '%.2f'|format(d.total_ttc or 0) }}</strong></td>
+
+          <td>
+            <div class="action-buttons">
+              <a href="{{ url_for('main.modifier_devis', devis_id=d.id_devis) }}" class="btn btn-secondary">Modifier</a>
+
+              <form method="POST"
+                    action="{{ url_for('main.supprimer_devis', devis_id=d.id_devis) }}"
+                    style="display:inline"
+                    onsubmit="return confirm('Supprimer ce devis ?');">
+                <button type="submit" class="btn btn-danger">Supprimer</button>
+              </form>
+
+              <a href="{{ url_for('main.editer_lignes_devis', devis_id=d.id_devis) }}" class="btn btn-primary">Lignes</a>
+
+              {% if peut_envoyer %}
+                <form method="POST"
+                      action="{{ url_for('main.envoyer_devis', devis_id=d.id_devis) }}"
+                      style="display:inline"
+                      onsubmit="return confirm('Envoyer ce devis au client par email ?');">
+                  <button type="submit" class="btn btn-outline-secondary">Envoyer le devis</button>
+                </form>
+              {% else %}
+                <button class="btn btn-outline-secondary" disabled
+                        title="Renseigner l’email du client et vérifier le total.">
+                  Envoyer le devis
+                </button>
+              {% endif %}
+
+              {% if peut_facturer %}
+                <form method="POST"
+                      action="{{ url_for('main.valider_devis', devis_id=d.id_devis) }}"
+                      style="display:inline"
+                      onsubmit="return confirm('Créer la facture et l’envoyer au client ?');">
+                  <button type="submit" class="btn btn-warning">Facturer</button>
+                </form>
+              {% else %}
+                <button class="btn btn-warning" disabled
+                        title="{% if d.facture is not none %}Déjà facturé.{% elif total_ht <= 0 %}Total HT nul.{% else %}Conditions non remplies.{% endif %}">
+                  Facturer
+                </button>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </main>
+
+  <footer>
+    <p>© 2025 Gestion Devis - Tous droits réservés.</p>
+  </footer>
+</body>
+</html>

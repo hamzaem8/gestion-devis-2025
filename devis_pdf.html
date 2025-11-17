@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Devis #{{ devis.id_devis }}</title>
+</head>
+<body>
+    <h1>Devis #{{ devis.id_devis }}</h1>
+    <p>Client : {{ devis.client.nom_client }}</p>
+    <p>Projet : {{ devis.projet.nom_projet }}</p>
+    <p>Date : {{ devis.date_creation_devis }}</p>
+    <h2>Lignes du Devis</h2>
+    <ul>
+        {% for ligne in lignes %}
+            <li>{{ ligne.article.description_ouvrage }} - {{ ligne.quantite_ouvrage }} x {{ ligne.article.prix_unitaire }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

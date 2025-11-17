@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enregistrer un Paiement</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Enregistrer un Paiement pour la Facture #{{ facture.id_facture }}</h1>
+    </header>
+    <main>
+        <form method="POST">
+            <label for="montant">Montant :</label>
+            <input type="number" name="montant" id="montant" step="0.01" required>
+
+            <label for="mode_paiement">Mode de Paiement :</label>
+            <select name="mode_paiement" id="mode_paiement" required>
+                <option value="Carte bancaire">Carte bancaire</option>
+                <option value="Virement">Virement</option>
+                <option value="Espèces">Espèces</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </form>
+    </main>
+  
+</body>
+</html>

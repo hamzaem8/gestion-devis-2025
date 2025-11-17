@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connexion</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    {% with msgs = get_flashed_messages(with_categories=True) %}
+  {% if msgs %}
+    <ul class="flashes">
+      {% for cat, msg in msgs %}
+        <li class="flash {{ cat }}">{{ msg }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<form method="POST" action="{{ url_for('main.connexion') }}">
+
+    <h1>Se connecter</h1>
+    <form method="POST">
+        <label for="email">Email :</label>
+        <input type="email" name="email" id="email" required>
+        
+        <label for="mot_de_passe">Mot de passe :</label>
+        <input type="password" name="mot_de_passe" id="mot_de_passe" required>
+        
+        <button type="submit">Se connecter</button>
+
+        <p>Pas encore de compte ? <a href="{{ url_for('main.inscription') }}">Inscrivez-vous ici</a>.</p>
+
+    </form>
+</body>
+</html>

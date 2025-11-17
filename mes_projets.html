@@ -1,0 +1,64 @@
+<div class="topbar">
+  <a href="{{ url_for('main.dashboard') }}" class="btn btn-back">← Retour</a>
+  <a href="{{ url_for('main.deconnexion') }}" class="btn btn-logout">Se Déconnecter</a>
+</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mes Projets</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="mes-projets-page">
+    <header>
+        <div class="header-container">
+            <h1>Mes Projets</h1>
+            <div class="header-actions">
+                <a href="{{ url_for('main.ajouter_projet') }}" class="btn btn-primary">Créer un Projet</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% if projets %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom du Projet</th>
+                    <th>Description</th>
+                    <th>Statut</th>
+                    <th>Date d'Échéance</th>
+                    <th>Client Associé</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for projet in projets %}
+                <tr>
+                    <td>{{ projet.nom_projet }}</td>
+                    <td>{{ projet.description_projet or '-' }}</td>
+                    <td>{{ projet.statut_projet }}</td>
+                    <td>{{ projet.date_echeance.strftime('%d/%m/%Y') if projet.date_echeance else '-' }}</td>
+                    <td>{{ projet.client.nom_client }} {{ projet.client.prenom_client }}</td>
+                    <td>
+                        <div class="action-buttons">
+                        <a href="{{ url_for('main.modifier_projet', projet_id=projet.id_projet) }}" class="btn btn-sm btn-secondary">Modifier</a>
+                        <form action="{{ url_for('main.supprimer_projet', projet_id=projet.id_projet) }}" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')">Supprimer</button>
+                        </form>
+                    </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Aucun projet trouvé. Cliquez sur "Créer un Projet" pour en ajouter un.</p>
+        {% endif %}
+    </main>
+    
+    <footer>
+        <p>© 2025 Gestion Devis - Tous droits réservés.</p>
+    </footer>
+    
+</body>
+</html>

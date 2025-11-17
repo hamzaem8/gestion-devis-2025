@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <!-- mieux pour éviter le cache -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Header unique avec le bouton en haut à droite -->
+    <header class="header-with-logout">
+        <h1>Bienvenue, {{ prenom }} !</h1>
+        <a href="{{ url_for('main.deconnexion') }}" class="btn btn-logout logout-right">Se Déconnecter</a>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="dashboard-card">
+            <a href="{{ url_for('main.ajouter_devis') }}" class="btn btn-primary">Créer un Devis</a>
+        </div>
+        <div class="dashboard-card">
+            <a href="{{ url_for('main.voir_factures') }}" class="btn btn-primary">Voir les Factures</a>
+        </div>
+        <div class="dashboard-card">
+            <a href="{{ url_for('main.mes_clients') }}" class="btn btn-primary">Mes Clients</a>
+        </div>
+        <div class="dashboard-card">
+            <a href="{{ url_for('main.mes_projets') }}" class="btn btn-primary">Mes Projets</a>
+        </div>
+        <div class="dashboard-card">
+            <a href="{{ url_for('main.mes_devis') }}" class="btn btn-primary">Mes Devis</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Gestion Devis - Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
+

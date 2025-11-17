@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mes Clients</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="mes-clients-page">
+
+  <div class="topbar">
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-back">← Retour</a>
+    <a href="{{ url_for('main.deconnexion') }}" class="btn btn-logout">Se Déconnecter</a>
+  </div>
+
+  <header>
+    <div class="header-container">
+      <h1>Mes Clients</h1>
+      <div class="header-actions">
+        <a href="{{ url_for('main.ajouter_client') }}" class="btn btn-primary">Ajouter un Client</a>
+      </div>
+    </div>
+
+    <!-- Barre de recherche -->
+    <form method="get" action="{{ url_for('main.mes_clients') }}" class="searchbar" style="margin-top:1rem">
+      <input type="text"
+             name="q"
+             value="{{ q or '' }}"
+             placeholder="Rechercher un client (nom, prénom, société…)"
+             aria-label="Recherche client">
+      <button type="submit" class="btn btn-primary">Rechercher</button>
+      {% if q %}
+        <a href="{{ url_for('main.mes_clients') }}" class="btn btn-light" style="margin-left:.5rem">Effacer</a>
+      {% endif %}
+    </form>
+  </header>
+
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Société</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Numéro de TVA</th>
+          <th>Adresse</th>
+          <th>Code Postal</th>
+          <th>Ville</th>
+          <th>Pays</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if clients %}
+          {% for client in clients %}
+          <tr>
+            <td>{{ client.societe or '-' }}</td>
+            <td>{{ client.nom_client }}</td>
+            <td>{{ client.prenom_client }}</td>
+            <td>{{ client.email_client }}</td>
+            <td>{{ client.telephone_client or '-' }}</td>
+            <td>{{ client.numero_TVA or '-' }}</td>
+            <td>{{ client.adresse_client }}</td>
+            <td>{{ client.code_postal or '-' }}</td>
+            <td>{{ client.ville or '-' }}</td>
+            <td>{{ client.pays or '-' }}</td>
+            <td>
+              <div class="action-buttons">
+                <a href="{{ url_for('main.modifier_client', client_id=client.id_client) }}"
+                   class="btn btn-sm btn-secondary">Modifier</a>
+                <form action="{{ url_for('main.supprimer_client', client_id=client.id_client) }}" method="POST">
+                  <button type="submit" class="btn btn-sm btn-danger"
+                          onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?')">
+                    Supprimer
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="11" style="text-align:center;color:#666">
+              {% if q %}
+                Aucun client ne correspond à « {{ q }} ».
+              {% else %}
+                Aucun client pour l’instant.
+              {% endif %}
+            </td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    <p>© 2025 Gestion Devis - Tous droits réservés.</p>
+  </footer>
+</body>
+</html>
+
